@@ -3,93 +3,103 @@ import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
 import { Avatar, Button, Grid, Link, TextField } from '@mui/material';
 import LockIcon from '@mui/icons-material/Lock';
+import { AuthContext } from '../contextApi/AuthContext';
+import { useContext } from 'react';
 
 
-const Signup = ({ open, handleClose }) => {
-// const Signup = () => {
- 
+// const Signup = ({ open, handleClose }) => {
+const Signup = () => {
+
+    const [open, setOpen, login, setLogin, signup, setSignup, handleClose, handleOpen] = useContext(AuthContext);
+
+
+    const handleModal = () => {
+        setLogin(true)
+        setSignup(false)
+    }
+
     return (
-            <Modal
-                open={open}
-                onClose={handleClose}
-                aria-labelledby="modal-modal-title"
-                aria-describedby="modal-modal-description"
-            >
-                <Box sx={style}>
-                    <Box sx={{ textAlign: "center" }}>
-                        <Avatar sx={{
-                            bgcolor: 'secondary.main', display: "inline-block"
-                        }}>
-                            <LockIcon sx={{ marginTop: '6px' }} />
-                        </Avatar>
-                        <Typography component="h1" variant="h5" sx={{ color: "#111" }}>
-                            Sign up
-                        </Typography>
+        <Modal
+            open={open}
+            onClose={handleClose}
+            aria-labelledby="modal-modal-title"
+            aria-describedby="modal-modal-description"
+        >
+            <Box sx={style}>
+                <Box sx={{ textAlign: "center" }}>
+                    <Avatar sx={{
+                        bgcolor: 'secondary.main', display: "inline-block"
+                    }}>
+                        <LockIcon sx={{ marginTop: '6px' }} />
+                    </Avatar>
+                    <Typography component="h1" variant="h5" sx={{ color: "#111" }}>
+                        Sign up
+                    </Typography>
 
-                    </Box>
-                    <Box component="form" noValidate sx={{ mt: 3 }}>
-                        <Grid container spacing={2}>
-                            <Grid item xs={12} sm={6}>
-                                <TextField
-                                    autoComplete="given-name"
-                                    name="firstName"
-                                    required
-                                    fullWidth
-                                    id="firstName"
-                                    label="First Name"
-                                    autoFocus
-                                />
-                            </Grid>
-                            <Grid item xs={12} sm={6}>
-                                <TextField
-                                    required
-                                    fullWidth
-                                    id="lastName"
-                                    label="Last Name"
-                                    name="lastName"
-                                    autoComplete="family-name"
-                                />
-                            </Grid>
-                            <Grid item xs={12}>
-                                <TextField
-                                    required
-                                    fullWidth
-                                    id="email"
-                                    label="Email Address"
-                                    name="email"
-                                    autoComplete="none"
-                                />
-                            </Grid>
-                            <Grid item xs={12}>
-                                <TextField
-                                    required
-                                    fullWidth
-                                    name="password"
-                                    label="Password"
-                                    type="password"
-                                    id="password"
-                                    autoComplete="new-password"
-                                />
-                            </Grid>
-                        </Grid>
-                        <Button
-                            type="submit"
-                            fullWidth
-                            variant="contained"
-                            sx={{ mt: 3, mb: 2 }}
-                        >
-                            Sign Up
-                        </Button>
-                        <Grid container justifyContent="flex-end">
-                            <Grid item>
-                                <div style={{color: "blue", textDecoration: "underline", cursor: "pointer"}} variant="body2">
-                                    Already have an account? Sign in
-                                </div>
-                            </Grid>
-                        </Grid>
-                    </Box>
                 </Box>
-            </Modal >
+                <Box component="form" noValidate sx={{ mt: 3 }}>
+                    <Grid container spacing={2}>
+                        <Grid item xs={12} sm={6}>
+                            <TextField
+                                autoComplete="given-name"
+                                name="firstName"
+                                required
+                                fullWidth
+                                id="firstName"
+                                label="First Name"
+                                autoFocus
+                            />
+                        </Grid>
+                        <Grid item xs={12} sm={6}>
+                            <TextField
+                                required
+                                fullWidth
+                                id="lastName"
+                                label="Last Name"
+                                name="lastName"
+                                autoComplete="family-name"
+                            />
+                        </Grid>
+                        <Grid item xs={12}>
+                            <TextField
+                                required
+                                fullWidth
+                                id="email"
+                                label="Email Address"
+                                name="email"
+                                autoComplete="none"
+                            />
+                        </Grid>
+                        <Grid item xs={12}>
+                            <TextField
+                                required
+                                fullWidth
+                                name="password"
+                                label="Password"
+                                type="password"
+                                id="password"
+                                autoComplete="new-password"
+                            />
+                        </Grid>
+                    </Grid>
+                    <Button
+                        type="submit"
+                        fullWidth
+                        variant="contained"
+                        sx={{ mt: 3, mb: 2 }}
+                    >
+                        Sign Up
+                    </Button>
+                    <Grid container justifyContent="flex-end">
+                        <Grid item>
+                            <div onClick={handleModal} style={{ color: "blue", textDecoration: "underline", cursor: "pointer" }} variant="body2">
+                                Already have an account? Sign in
+                            </div>
+                        </Grid>
+                    </Grid>
+                </Box>
+            </Box>
+        </Modal >
     );
 }
 

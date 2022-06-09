@@ -5,7 +5,7 @@ import { Avatar, Button, Grid, Link, TextField } from '@mui/material';
 import LockIcon from '@mui/icons-material/Lock';
 import Signup from './Signup';
 import { AuthContext } from '../contextApi/AuthContext';
-import { useState, useContext } from 'react';
+import { useContext } from 'react';
 
 
 // const Login = ({ open, handleClose }) => {
