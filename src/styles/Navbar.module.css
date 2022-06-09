@@ -1,0 +1,27 @@
+.navContainer {
+    color: #fff;
+    display: flex;
+    justify-content: space-between;
+    max-width: 90%;
+    margin: auto;
+    margin-bottom: 1em;
+    border-bottom: 1px solid #444;
+}
+
+.rightNavItems {
+    display: flex;
+}
+
+.navItem {
+    /* height: 100%; */
+    padding: 1.2em  ;
+    font-size: .85rem;
+    font-weight: 500;
+    letter-spacing: 3px;
+}
+
+.navItem:hover {
+    transition: .1s;
+    background-color: #444;
+    cursor: pointer;
+}

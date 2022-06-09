@@ -1,0 +1,109 @@
+.topContainer, .container2 {
+    width: 90%;
+    margin: auto;
+}
+
+.headingMain {
+    font-size: 1.2rem;
+    letter-spacing: 3px;
+}
+
+.videoContainer {
+    text-align: center;
+    padding: 7em;
+    font-size: 2rem;
+    font-weight: 800;
+}
+
+.introHeading, .introHeading2 {
+    color: rgb(236, 203, 13);
+    font-size: 2rem;
+    font-weight: 800;
+}
+
+.listItems {
+    padding: 1.4em 1em 0 1em;
+}
+
+.listItem {
+    margin-bottom: 1em;
+    color: rgb(199, 195, 195);
+}
+
+.hr {
+    width: 100%;
+    margin: auto;
+    border: none;
+    border-top: 1px solid #111;
+    border-bottom: 1px solid #111;
+    height: 1px;
+    margin: 2em 0;
+}
+
+.introHeading2 {
+    margin-top: 1.5em;
+    margin-bottom: 1em;
+}
+
+.roadmapIntro {
+    padding-left: .4em;
+}
+
+.roadmapDesc {
+    color: rgb(202, 200, 200);
+    padding: .15em 0
+}
+
+.checkpoints {
+    margin-left: 2.5em;
+    margin-top: 3em;
+    max-width: 700px;
+    text-align: left;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.data {
+    display: flex;
+    /* justify-content: center; */
+    align-items: center;
+    /* margin-bottom: 2em; */
+    height: 3em;
+}
+
+.percentageKey {
+    color: rgb(236, 203, 13);
+    font-weight: 500;
+}
+
+
+.percentageKey, .valuePair {
+    display: inline-block;
+}
+
+.valuePair {
+    margin-left: 5em;
+}
+
+.valuePairLast {
+    margin-left: 4.5em;
+}
+
+.mapContent {
+    max-width: 700px;
+    padding: 1em;
+    line-height: 2em;
+    color: rgb(202, 200, 200);
+}
+
+.flex2 {
+    width: 90%;
+    display: flex;
+}
+
+.img3 {
+    margin-left: 20em;
+    color: #fff;
+    text-align: center;
+}

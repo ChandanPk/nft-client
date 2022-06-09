@@ -1,0 +1,102 @@
+.container {
+    width: 100%;
+    text-align: center;
+    margin: 0;
+    padding: 0;
+}
+
+.musicImgContainer {
+    /* max-width: 1300px; */
+    margin: auto;
+    margin-top: 4em;
+}
+
+.wrapper {
+    max-width: 1300px;
+    margin: auto;
+    padding-bottom: 30px;
+    border-bottom: 1px dotted #444;
+
+}
+
+.imgTag {
+    width: 95%;
+    height: 100%;    
+}
+
+.musicImgContainer2 {
+    max-width: 900px;
+    margin: auto;
+    margin-top: 1em;
+}
+
+.musicImgContainer2 {
+    display: none;
+}
+
+.formHeader {
+    margin-top: 20px;
+    text-align: center;
+    font-weight: 600;
+}
+
+
+.form {
+    padding: 1.2em 2em;
+    background-color: #333;
+    text-align: center;
+    margin: auto;
+    margin-top: 1.1em;
+    width: 260px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.reedomField {
+    width: 100%;
+    padding: .4em .7em;
+    border-radius: 5px;
+    border: none;
+    outline: none;
+    background-color: #222;
+    color: #fff;
+    font-size: 1.2rem;
+    margin-bottom: .8em;
+
+
+}
+
+.btn {
+    margin-top: 10px;
+    padding: .7em 2em;
+    font-weight: 800;
+    color: #FFF;
+    background-color: blue;
+    border: none;
+    border-radius: 20px;
+    font-weight: 800;
+    font-size: .9rem;
+}
+
+.btn:hover {
+    cursor: pointer;
+}
+
+
+
+
+/* Small view ports(Mobiles Phones) */
+@media only screen and (max-width: 480px) {
+    .musicImgContainer {
+        display: none;
+    }
+
+    .musicImgContainer2 {
+        display: unset;
+    }
+
+    .imgTag {
+        width: 85%;
+    }
+}

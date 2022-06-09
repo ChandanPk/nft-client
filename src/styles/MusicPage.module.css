@@ -1,0 +1,43 @@
+.container {
+    width: 100%;
+    text-align: center;
+}
+
+.musicImgContainer {
+    max-width: 1200px;
+    margin: auto;
+    margin-top: 4em;
+}
+
+.imgTag {
+    width: 95%;
+    height: 100%;    
+}
+
+.musicImgContainer2 {
+    max-width: 900px;
+    margin: auto;
+    margin-top: 1em;
+}
+
+.musicImgContainer2 {
+    display: none;
+}
+
+
+
+
+/* Small view ports(Mobiles Phones) */
+@media only screen and (max-width: 480px) {
+    .musicImgContainer {
+        display: none;
+    }
+
+    .musicImgContainer2 {
+        display: unset;
+    }
+
+    .imgTag {
+        width: 85%;
+    }
+}
