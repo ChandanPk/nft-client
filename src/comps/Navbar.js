@@ -27,9 +27,9 @@ const Navbar = () => {
     return (
         <div className={styles.navContainer}>
             <div className={styles.rightNavItems}>
-                <Link class="links" to="/"><div className={styles.navItem}>Home</div></Link>
-                <Link class="links" to="/street"><div className={styles.navItem}>Street NFT</div></Link>
-                <Link class="links" to="/music"><div className={styles.navItem}>MUSIC NFT</div></Link>
+                <Link className="links" to="/"><div className={styles.navItem}>Home</div></Link>
+                <Link className="links" to="/street"><div className={styles.navItem}>Street NFT</div></Link>
+                <Link className="links" to="/music"><div className={styles.navItem}>MUSIC NFT</div></Link>
             </div>
             <div className={styles.rightNavItems}>
                 <Link to="/score" className="links"><div className={styles.navItem}>SHA POINTS</div></Link>

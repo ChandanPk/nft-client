@@ -4,11 +4,22 @@ import Modal from '@mui/material/Modal';
 import { Avatar, Button, Grid, Link, TextField } from '@mui/material';
 import LockIcon from '@mui/icons-material/Lock';
 import { AuthContext } from '../contextApi/AuthContext';
-import { useContext } from 'react';
+import { useContext, useState } from 'react';
+import { useRef } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 
 // const Signup = ({ open, handleClose }) => {
 const Signup = () => {
+    const [email, setEmail] = useState('')
+    const [pwd, setPwd] = useState('')
+    const [fName, setFName] = useState('')
+    const [lName, setLName] = useState('')
+    const [emailErr, setEmailErr] = useState(false)
+    const [pwdErr, setPwdErr] = useState(false)
+
+    const navigate = useNavigate();
+
 
     const [open, setOpen, login, setLogin, signup, setSignup, handleClose, handleOpen] = useContext(AuthContext);
 
@@ -16,6 +27,40 @@ const Signup = () => {
     const handleModal = () => {
         setLogin(true)
         setSignup(false)
+    }
+
+    const handleAuth = async (e) => {
+        setEmailErr(null)
+        setPwdErr(null)
+        e.preventDefault();
+        // console.log(fName, pwd, lName, email)
+        try {
+            const res = await fetch("http://localhost:8000/signup", {
+                method: 'POST',
+                body: JSON.stringify({ email, password: pwd, firstName: fName, lastName: lName }),
+                headers: { 'Content-Type': 'application/json' }
+            })
+            const data = await res.json()
+            if (res.status === 201) {
+                // setCookies('jwt', data.token, { path: '/' })
+                console.log(data)
+                navigate('/', { replace: true })
+
+            } else {
+                throw data
+            }
+        } catch (error) {
+            // console.log("hillo")
+            console.log(error)
+            if (error.errors) {
+                if (error.errors.email) {
+                    setEmailErr(error.errors.email)
+                }
+                if (error.errors.password) {
+                    setPwdErr(error.errors.password)
+                }
+            }
+        }
     }
 
     return (
@@ -37,7 +82,7 @@ const Signup = () => {
                     </Typography>
 
                 </Box>
-                <Box component="form" noValidate sx={{ mt: 3 }}>
+                <Box component="form" onSubmit={(e) => handleAuth(e)} noValidate sx={{ mt: 3 }}>
                     <Grid container spacing={2}>
                         <Grid item xs={12} sm={6}>
                             <TextField
@@ -48,6 +93,8 @@ const Signup = () => {
                                 id="firstName"
                                 label="First Name"
                                 autoFocus
+                                value={fName}
+                                onChange={(e) => setFName(e.target.value)}
                             />
                         </Grid>
                         <Grid item xs={12} sm={6}>
@@ -58,17 +105,21 @@ const Signup = () => {
                                 label="Last Name"
                                 name="lastName"
                                 autoComplete="family-name"
+                                onChange={(e) => setLName(e.target.value)}
                             />
                         </Grid>
                         <Grid item xs={12}>
                             <TextField
                                 required
                                 fullWidth
+                                type="email"
                                 id="email"
                                 label="Email Address"
                                 name="email"
                                 autoComplete="none"
+                                onChange={(e) => setEmail(e.target.value)}
                             />
+                            <p style={{ fontWeight: "bold", color: "red" }}>{emailErr}</p>
                         </Grid>
                         <Grid item xs={12}>
                             <TextField
@@ -79,7 +130,9 @@ const Signup = () => {
                                 type="password"
                                 id="password"
                                 autoComplete="new-password"
+                                onChange={(e) => setPwd(e.target.value)}
                             />
+                            <p style={{ fontWeight: "bold", color: "red" }}>{pwdErr}</p>
                         </Grid>
                     </Grid>
                     <Button

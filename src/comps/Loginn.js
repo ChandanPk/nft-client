@@ -16,6 +16,7 @@ const Login = () => {
         e.preventDefault();
         const email = emailRef.current.value
         const password = pwdRef.current.value
+        // console.log(emailRef.current.value)
 
         try {
             const res = await fetch("http://localhost:8000/login", {
