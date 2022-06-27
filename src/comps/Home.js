@@ -1,14 +1,16 @@
 // import { Container } from "@mui/material";
 import Navbar from "./Navbar";
 import styles from "../styles/Home.module.css"
+import { useNavigate } from "react-router-dom";
 
 const Home = () => {
+    const navigate = useNavigate();
+
     return (
         <>
             <Navbar />
             <div className={styles.topContainer}>
                 <div className={styles.headingMain}>
-                    <h1>SHA Tokens</h1>
                 </div>
                 <div className={styles.videoContainer}>
                     Img/Video

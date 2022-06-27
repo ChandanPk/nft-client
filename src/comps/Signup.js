@@ -5,7 +5,7 @@ import { Avatar, Button, Grid, Link, TextField } from '@mui/material';
 import LockIcon from '@mui/icons-material/Lock';
 import { AuthContext } from '../contextApi/AuthContext';
 import { useContext, useState } from 'react';
-import { useRef } from 'react';
+import { useCookies } from 'react-cookie'
 import { useNavigate } from 'react-router-dom';
 
 
@@ -18,10 +18,14 @@ const Signup = () => {
     const [emailErr, setEmailErr] = useState(false)
     const [pwdErr, setPwdErr] = useState(false)
 
+    const [cookies, setCookies] = useCookies()
+
+    
+
     const navigate = useNavigate();
 
 
-    const [open, setOpen, login, setLogin, signup, setSignup, handleClose, handleOpen] = useContext(AuthContext);
+    const {open, setOpen, setLogin, setSignup, handleClose, handleOpen} = useContext(AuthContext);
 
 
     const handleModal = () => {
@@ -42,10 +46,11 @@ const Signup = () => {
             })
             const data = await res.json()
             if (res.status === 201) {
-                // setCookies('jwt', data.token, { path: '/' })
+                setCookies('jwt', data.token, { path: '/' , maxAge: 300})
                 console.log(data)
+                handleClose()
+                setOpen(false)
                 navigate('/', { replace: true })
-
             } else {
                 throw data
             }

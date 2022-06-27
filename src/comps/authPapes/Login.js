@@ -1,18 +1,16 @@
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
-import Modal from '@mui/material/Modal';
-import { Avatar, Button, Grid, TextField } from '@mui/material';
+import { Avatar, Button, Container, Grid, TextField } from '@mui/material';
 import LockIcon from '@mui/icons-material/Lock';
-import { AuthContext } from '../contextApi/AuthContext';
-import { useState, useContext } from 'react';
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useCookies } from 'react-cookie';
-import { useEffect } from 'react';
+// import { AuthContext } from '../../contextApi/AuthContext'
+// import { useContext } from 'react';
 
 
 // const Login = ({ open, handleClose }) => {
 const Login = () => {
-    console.log("aah")
 
     const [email, setEmail] = useState('')
     const [pwd, setPwd] = useState('')
@@ -22,14 +20,10 @@ const Login = () => {
     const [emailErr, setEmailErr] = useState(false)
     const [pwdErr, setPwdErr] = useState(false)
 
-    const {open, setOpen, setLogin, setSignup, handleClose} = useContext(AuthContext);
+    // const { setIsAuth } = useContext(AuthContext)
+
     const navigate = useNavigate()
 
-
-    const handleModal = () => {
-        setLogin(false)
-        setSignup(true)
-    }
 
     const handleAuth = async (e) => {
         setEmailErr(null)
@@ -44,9 +38,8 @@ const Login = () => {
             const data = await res.json()
             if (res.status === 302) {
                 console.log(data)
-                setCookies('jwt', data.token, { path: '/', maxAge: 1800})
-                setOpen(false)
-                navigate('/test', { replace: true })
+                setCookies('jwt', data.token, { path: '/', maxAge: 1800 })
+                navigate('/')
             } else {
                 throw data
             }
@@ -64,22 +57,10 @@ const Login = () => {
     }
 
 
-    useEffect(() =>  {
-        setOpen(true)
-        setLogin(true)
-        setSignup(false)
-    }, [])
-
     return (
-        <Modal
-            open={open}
-            onClose={handleClose}
-            aria-labelledby="modal-modal-title"
-            aria-describedby="modal-modal-description"
-        >
+        <Container>
             <Box sx={style}>
                 <Box sx={{ textAlign: "center" }}>
-                    {/* <div style={{display: "inline-block", textAlign: "center"}}> */}
                     <Avatar sx={{
                         bgcolor: 'secondary.main', display: "inline-block"
                     }}>
@@ -88,10 +69,8 @@ const Login = () => {
                     <Typography component="h1" variant="h5" sx={{ color: "#111" }}>
                         Log In
                     </Typography>
-                    {/* </div> */}
-
                 </Box>
-                <Box component="form" onSubmit={(e)=> handleAuth(e)} noValidate sx={{ mt: 3 }}>
+                <Box component="form" onSubmit={(e) => handleAuth(e)} noValidate sx={{ mt: 3 }}>
                     <Grid container spacing={2}>
 
                         <Grid item xs={12}>
@@ -133,14 +112,21 @@ const Login = () => {
                     </Button>
                     <Grid container justifyContent="flex-end">
                         <Grid item>
-                            <div onClick={handleModal} style={{ color: "blue", textDecoration: "underline", cursor: "pointer" }} variant="body2">
+                            <div onClick={() => navigate('/signup')} style={{ color: "blue", textDecoration: "underline", cursor: "pointer" }} variant="body2">
                                 Don't have a account? Sign up
+                            </div>
+                        </Grid>
+                    </Grid>
+                    <Grid container justifyContent="flex-end">
+                        <Grid item>
+                            <div onClick={() => navigate('/')} style={{ color: "blue", textDecoration: "underline", cursor: "pointer", marginTop: ".5em" }} variant="body2">
+                                Home
                             </div>
                         </Grid>
                     </Grid>
                 </Box>
             </Box>
-        </Modal >
+        </Container>
     );
 }
 

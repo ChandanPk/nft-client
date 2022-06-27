@@ -1,57 +1,54 @@
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
-import Modal from '@mui/material/Modal';
-import { Avatar, Button, Grid, TextField } from '@mui/material';
+import { Avatar, Button, Container, Grid, TextField } from '@mui/material';
 import LockIcon from '@mui/icons-material/Lock';
-import { AuthContext } from '../contextApi/AuthContext';
-import { useState, useContext } from 'react';
+// import { AuthContext } from '../../contextApi/AuthContext'
+import { useContext, useState } from 'react';
+import { useCookies } from 'react-cookie'
 import { useNavigate } from 'react-router-dom';
-import { useCookies } from 'react-cookie';
-import { useEffect } from 'react';
+// import { Handshake } from '@mui/icons-material';
 
 
-// const Login = ({ open, handleClose }) => {
-const Login = () => {
-    console.log("aah")
-
+// const Signup = ({ open, handleClose }) => {
+const Signup = () => {
     const [email, setEmail] = useState('')
     const [pwd, setPwd] = useState('')
-
-    const [cookies, setCookies] = useCookies()
-
+    const [fName, setFName] = useState('')
+    const [lName, setLName] = useState('')
     const [emailErr, setEmailErr] = useState(false)
     const [pwdErr, setPwdErr] = useState(false)
 
-    const {open, setOpen, setLogin, setSignup, handleClose} = useContext(AuthContext);
-    const navigate = useNavigate()
+    const [cookies, setCookies] = useCookies()
 
 
-    const handleModal = () => {
-        setLogin(false)
-        setSignup(true)
-    }
+
+    const navigate = useNavigate();
+
+
+    // const { setIsAuth } = useContext(AuthContext);
+
 
     const handleAuth = async (e) => {
         setEmailErr(null)
         setPwdErr(null)
         e.preventDefault();
         try {
-            const res = await fetch("http://localhost:8000/login", {
+            const res = await fetch("http://localhost:8000/signup", {
                 method: 'POST',
-                body: JSON.stringify({ email, password: pwd }),
+                body: JSON.stringify({ email, password: pwd, firstName: fName, lastName: lName }),
                 headers: { 'Content-Type': 'application/json' }
             })
             const data = await res.json()
-            if (res.status === 302) {
+            if (res.status === 201) {
+                setCookies('jwt', data.token, { path: '/', maxAge: 300 })
                 console.log(data)
-                setCookies('jwt', data.token, { path: '/', maxAge: 1800})
-                setOpen(false)
-                navigate('/test', { replace: true })
+                // setIsAuth(true)
+                navigate('/')
             } else {
                 throw data
             }
         } catch (error) {
-
+            console.log(error)
             if (error.errors) {
                 if (error.errors.email) {
                     setEmailErr(error.errors.email)
@@ -63,47 +60,56 @@ const Login = () => {
         }
     }
 
-
-    useEffect(() =>  {
-        setOpen(true)
-        setLogin(true)
-        setSignup(false)
-    }, [])
-
     return (
-        <Modal
-            open={open}
-            onClose={handleClose}
-            aria-labelledby="modal-modal-title"
-            aria-describedby="modal-modal-description"
-        >
+        <Container>
             <Box sx={style}>
                 <Box sx={{ textAlign: "center" }}>
-                    {/* <div style={{display: "inline-block", textAlign: "center"}}> */}
                     <Avatar sx={{
                         bgcolor: 'secondary.main', display: "inline-block"
                     }}>
                         <LockIcon sx={{ marginTop: '6px' }} />
                     </Avatar>
                     <Typography component="h1" variant="h5" sx={{ color: "#111" }}>
-                        Log In
+                        Sign up
                     </Typography>
-                    {/* </div> */}
 
                 </Box>
-                <Box component="form" onSubmit={(e)=> handleAuth(e)} noValidate sx={{ mt: 3 }}>
-                    <Grid container spacing={2}>
 
-                        <Grid item xs={12}>
+                <Box component="form" onSubmit={(e) => handleAuth(e)} noValidate sx={{ mt: 3 }}>
+                    <Grid container spacing={2}>
+                        <Grid item xs={12} sm={6}>
                             <TextField
-                                autoFocus
+                                autoComplete="given-name"
+                                name="firstName"
                                 required
                                 fullWidth
+                                id="firstName"
+                                label="First Name"
+                                autoFocus
+                                value={fName}
+                                onChange={(e) => setFName(e.target.value)}
+                            />
+                        </Grid>
+                        <Grid item xs={12} sm={6}>
+                            <TextField
+                                required
+                                fullWidth
+                                id="lastName"
+                                label="Last Name"
+                                name="lastName"
+                                autoComplete="family-name"
+                                onChange={(e) => setLName(e.target.value)}
+                            />
+                        </Grid>
+                        <Grid item xs={12}>
+                            <TextField
+                                required
+                                fullWidth
+                                type="email"
                                 id="email"
                                 label="Email Address"
                                 name="email"
                                 autoComplete="none"
-                                value={email}
                                 onChange={(e) => setEmail(e.target.value)}
                             />
                             <p style={{ fontWeight: "bold", color: "red" }}>{emailErr}</p>
@@ -117,7 +123,6 @@ const Login = () => {
                                 type="password"
                                 id="password"
                                 autoComplete="new-password"
-                                value={pwd}
                                 onChange={(e) => setPwd(e.target.value)}
                             />
                             <p style={{ fontWeight: "bold", color: "red" }}>{pwdErr}</p>
@@ -129,22 +134,29 @@ const Login = () => {
                         variant="contained"
                         sx={{ mt: 3, mb: 2 }}
                     >
-                        Sign In
+                        Sign Up
                     </Button>
                     <Grid container justifyContent="flex-end">
                         <Grid item>
-                            <div onClick={handleModal} style={{ color: "blue", textDecoration: "underline", cursor: "pointer" }} variant="body2">
-                                Don't have a account? Sign up
+                            <div onClick={() => navigate('/login')} style={{ color: "blue", textDecoration: "underline", cursor: "pointer" }} variant="body2">
+                                Already have an account? Sign in
+                            </div>
+                        </Grid>
+                    </Grid>
+                    <Grid container justifyContent="flex-end">
+                        <Grid item>
+                            <div onClick={() => navigate('/')} style={{ color: "blue", textDecoration: "underline", cursor: "pointer", marginTop: ".5em" }} variant="body2">
+                                Home
                             </div>
                         </Grid>
                     </Grid>
                 </Box>
             </Box>
-        </Modal >
+        </Container>
     );
 }
 
-export default Login;
+export default Signup;
 
 const style = {
     position: 'absolute',
